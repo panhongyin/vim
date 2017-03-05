@@ -15,7 +15,7 @@ set fileencodings=utf-8,latin1,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
 set encoding=utf-8
 
 " make sure last line in file has <EOL>
-set fixendofline
+set endofline
 
 " list of directories searched with "gf" et.al.
 set path=.,/usr/include,/usr/local/include,
