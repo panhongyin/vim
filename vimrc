@@ -1,108 +1,78 @@
-if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
-   set fileencodings=ucs-bom,utf-8,latin1
-endif
+"=====================================================================
+"         the vim configure file only for seven(panhongyin)
+"=====================================================================
 
-set nocompatible	" Use Vim defaults (much better!)
-set bs=indent,eol,start		" allow backspacing over everything in insert mode
-"set ai			" always set autoindenting on
-"set backup		" keep a backup file
-set viminfo='20,\"50	" read/write a .viminfo file, don't store more
-			" than 50 lines of registers
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
 
-" Only do this part when compiled with support for autocommands
-if has("autocmd")
-  augroup redhat
-  autocmd!
-  " In text files, always limit the width of text to 78 characters
-  " autocmd BufRead *.txt set tw=78
-  " When editing a file, always jump to the last cursor position
-  autocmd BufReadPost *
-  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-  \   exe "normal! g'\"" |
-  \ endif
-  " don't write swapfile on most commonly used directories for NFS mounts or USB sticks
-  autocmd BufNewFile,BufReadPre /media/*,/run/media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
-  " start with spec file template
-  autocmd BufNewFile *.spec 0r /usr/share/vim/vimfiles/template.spec
-  augroup END
-endif
+"=====================================================================
+"          this part for vim base configure options
+"=====================================================================
 
-if has("cscope") && filereadable("/usr/bin/cscope")
-   set csprg=/usr/bin/cscope
-   set csto=0
-   set cst
-   set nocsverb
-   " add any database in current directory
-   if filereadable("cscope.out")
-      cs add $PWD/cscope.out
-   " else add database pointed to by environment
-   elseif $CSCOPE_DB != ""
-      cs add $CSCOPE_DB
-   endif
-   set csverb
-endif
+" file default encoding format and supported
+set fileencoding=utf-8
+set fileencodings=utf-8,latin1,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
+" encoding used internally
+set encoding=utf-8
 
+" make sure last line in file has <EOL>
+set fixendofline
+
+" list of directories searched with "gf" et.al.
+set path=.,/usr/include,/usr/local/include,
+
+" switch on file type detection, with automatic indenting and settings
 filetype plugin on
 filetype plugin indent on
 
-if &term=="xterm"
-     set t_Co=8
-     set t_Sb=[4%dm
-     set t_Sf=[3%dm
-endif
+" only use vim mode
+set nocompatible
 
-" Don't wake up system with blinking cursor:
-" http://www.linuxpowertop.org/known.php
-let &guicursor = &guicursor . ",a:blinkon0"
+" start using syntax highlighting
+syntax on
 
-" show matching brackets.
-set showmatch
+" highlight matches with search pattern
+set hlsearch
+set incsearch
 
-" do case insensitive matching
-"set ignorecase		
+" smart autoindenting for C
+set cindent
 
-" do smart case matching
-set smartcase		
+" take indent for new line from previous line
+set autoindent
+set smartindent
 
-" automatically save before commands like :next and :make
-set autowrite		
-
-" hide buffers when they are abandoned
-set hidden  		
-
-" highlight current line
-set cursorline		
-
-" always show status line
-set laststatus=2
-set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %l/%L%)
-
-" auto indent and width 4
-"set cindent
-"set autoindent
-"set smartindent
+" number of spaces to use for (auto)indent step
+set smarttab
 set shiftwidth=4
 
-" tab width 4 and use space
+" use spaces when <Tab> is inserted
 set expandtab
+
+" number of spaces that <Tab>
 set tabstop=4
 set softtabstop=4
+
+" maximum width of text that is being inserted
+set textwidth=79
+
+" briefly jump to matching bracket if insert one
+set showmatch
+
+" no ignore case when pattern has uppercase
+set smartcase		
+
+" highlight the screen line of the cursor
+set cursorline		
+
+" always show status line on my format
+set laststatus=2
+set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %l/%L%)
 
 " use /usr/share/vim/vim74/colors/evening.vim
 "colorscheme evening
 
-" search highlight
-set hlsearch
-set incsearch
+" "dark" or "light", used for highlight colors
+set background=dark
 
 " disable generate temporary file
 set nobackup
@@ -110,3 +80,51 @@ set noswapfile
 
 " disable loop search
 set nowrapscan
+
+" print the line number in front of each line
+set number
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" read/write a .viminfo file, don't store more than 50 lines of registers
+set viminfo='20,\"50
+
+" number of command-lines that are remembered
+set history=100
+
+" show cursor line and column in the status line
+set ruler
+
+" autom. read file when changed outside of Vim
+set autoread
+
+" write to file with no need for "!" override
+set writeany
+
+" disable ring the bell for error messages
+set noerrorbells
+
+
+"=====================================================================
+" this part for shortcut keys configure 
+"=====================================================================
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+
+"=====================================================================
+"            this part for autocmd configure options
+"=====================================================================
+autocmd BufNewFile,BufRead *.yml,*.yaml,*.html,*.css 
+\ set tabstop=2 |
+\ set softtabstop=2 |
+\ set shiftwidth=2
+
+" When editing a file, always jump to the last cursor position
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+\   exe "normal! g'\"" |
+\ endif
