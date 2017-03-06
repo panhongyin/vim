@@ -8,7 +8,7 @@ fi
 case $(crudini --get /etc/os-release  DEFAULT ID) in
     'ubuntu'):
         apt install -y vim python-flake8
-        /usr/bin/cp -f ./vimrc /etc/vim/vimrc
+        cp -f ./vimrc /etc/vim/vimrc
         ;;
     '"centos"'):
         yum install -y vim python-flake8
