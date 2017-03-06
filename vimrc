@@ -143,4 +143,7 @@ autocmd BufReadPost *
 \ if line("'\"") > 0 && line ("'\"") <= line("$") |
 \   exe "normal! g'\"" |
 \ endif
+
+" map flake8 shortcut key to F8
+autocmd FileType python map <buffer> <F8> :call Flake8()<CR>
 "================================================================================
