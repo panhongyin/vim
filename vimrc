@@ -1,12 +1,10 @@
-"=====================================================================
+"================================================================================
 "         the vim configure file only for seven(panhongyin)
-"=====================================================================
+"================================================================================
 
 
-"=====================================================================
-"          this part for vim base configure options
-"=====================================================================
 
+"================================================================================
 " file default encoding format and supported
 set fileencoding=utf-8
 set fileencodings=utf-8,latin1,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
@@ -20,12 +18,32 @@ set endofline
 " list of directories searched with "gf" et.al.
 set path=.,/usr/include,/usr/local/include,
 
-" switch on file type detection, with automatic indenting and settings
-filetype plugin on
-filetype plugin indent on
+"---------------------------------------------------------------------------------
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 
 " only use vim mode
 set nocompatible
+
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'nvie/vim-flake8'
+
+call vundle#end()
+
+"filetype plugin on
+filetype plugin indent on
+"---------------------------------------------------------------------------------
 
 " start using syntax highlighting
 syntax on
@@ -106,18 +124,15 @@ set writeany
 set noerrorbells
 
 
-"=====================================================================
-" this part for shortcut keys configure 
-"=====================================================================
+"================================================================================
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+"================================================================================
 
 
-"=====================================================================
-"            this part for autocmd configure options
-"=====================================================================
+"================================================================================
 autocmd BufNewFile,BufRead *.yml,*.yaml,*.html,*.css 
 \ set tabstop=2 |
 \ set softtabstop=2 |
@@ -128,3 +143,4 @@ autocmd BufReadPost *
 \ if line("'\"") > 0 && line ("'\"") <= line("$") |
 \   exe "normal! g'\"" |
 \ endif
+"================================================================================
