@@ -7,10 +7,10 @@ fi
 
 source /etc/os-release
 
-packages="vim python-flake8"
-
 process_on_ubuntu()
 {
+    packages="vim python-flake8"
+
     for pkg in $packages; do
         apt install -y $pkg
         if test $? -ne 0; then
@@ -24,6 +24,8 @@ process_on_ubuntu()
 
 process_on_centos()
 {
+    packages="vim python-flake8"
+
     for pkg in $packages; do
         yum install -y $pkg
         if test $? -ne 0; then
