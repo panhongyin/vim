@@ -5,15 +5,42 @@ if test $UID -ne 0; then
     exit 1
 fi
 
-os_name=$(grep -w "NAME" /etc/os-release | awk -F '=' '{print $2}')
-case $os_name in
-    '"Ubuntu"'):
-        apt install -y vim python-flake8
-        cp -f ./vimrc /etc/vim/vimrc
+source /etc/os-release
+
+packages="vim python-flake8"
+
+process_on_ubuntu()
+{
+    for pkg in $packages; do
+        apt install -y $pkg
+        if test $? -ne 0; then
+            echo "Install $pkg fail"
+            exit 1
+        fi
+    done
+
+    /bin/cp -f ./vimrc /etc/vim/vimrc
+}
+
+process_on_centos()
+{
+    for pkg in $packages; do
+        yum install -y $pkg
+        if test $? -ne 0; then
+            echo "Install $pkg fail"
+            exit 1
+        fi
+    done
+
+    /usr/bin/cp -f ./vimrc /etc/vimrc
+}
+
+case $ID in
+    'ubuntu'):
+        process_on_ubuntu
         ;;
-    '"CentOS"'):
-        yum install -y vim python-flake8
-        /usr/bin/cp -f ./vimrc /etc/vimrc
+    'centos'):
+        process_on_centos
         ;;
     *):
         echo "I don't know the OS is what ghost"
