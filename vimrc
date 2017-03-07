@@ -59,6 +59,10 @@ set cindent
 set autoindent
 set smartindent
 
+" when you paste multi-line, you can press F9 
+" to switch autoindent for prevent bad format 
+set pastetoggle=<F9>
+
 " number of spaces to use for (auto)indent step
 set smarttab
 set shiftwidth=4
