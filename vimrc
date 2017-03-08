@@ -59,10 +59,6 @@ set cindent
 set autoindent
 set smartindent
 
-" when you paste multi-line, you can press F9 
-" to switch autoindent for prevent bad format 
-set pastetoggle=<F9>
-
 " number of spaces to use for (auto)indent step
 set smarttab
 set shiftwidth=4
@@ -103,9 +99,6 @@ set noswapfile
 " disable loop search
 set nowrapscan
 
-" print the line number in front of each line
-set number
-
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -129,10 +122,20 @@ set noerrorbells
 
 
 "================================================================================
+" map shortcut for switch window
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" map shortcut for flake8
+autocmd FileType python map <buffer> <F8> :call Flake8()<CR>
+
+" map shortcut for autoindent 
+set pastetoggle=<F9>
+
+" map shortcut for show line number
+nnoremap <F10> :set number!<CR>
 "================================================================================
 
 
@@ -148,6 +151,4 @@ autocmd BufReadPost *
 \   exe "normal! g'\"" |
 \ endif
 
-" map flake8 shortcut key to F8
-autocmd FileType python map <buffer> <F8> :call Flake8()<CR>
 "================================================================================
