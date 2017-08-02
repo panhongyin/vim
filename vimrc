@@ -90,7 +90,7 @@ set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %l/
 "colorscheme evening
 
 " "dark" or "light", used for highlight colors
-set background=dark
+"set background=dark
 
 " disable generate temporary file
 set nobackup
