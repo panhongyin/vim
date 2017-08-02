@@ -71,7 +71,7 @@ set tabstop=4
 set softtabstop=4
 
 " maximum width of text that is being inserted
-set textwidth=79
+set textwidth=100
 
 " briefly jump to matching bracket if insert one
 set showmatch
